@@ -1,0 +1,221 @@
+:: StoryTitle
+paro cardiaco state
+
+:: UserScript[script]
+
+
+:: UserStylesheet[stylesheet]
+
+
+:: Start[START]
+Instrucciones iniciales, Este es un entrenador de primeros auxilios para respuesta a paro cardiaco.
+En este nodo va a reproducir un audio que dirá "Este es un entrenador de primeros auxilios, más adelante se darán intrucciones de como responder ante un evento de paro cardiaco".
+@
+[[Que hacer?]]
+{}
+<
+Simulator.InitializeAudiosDirectory("TweenityInstructions")
+Simulator.Wait(2)
+Simulator.Play("InstruccionInicial")
+Simulator.OpenDialogueViewer()
+>
+
+:: Examinar la escena[dialogue]
+revise la escena verificando que no haya cuerpos externos o materiales que puedan poner en riesgo al usuario o al cuerpo de la persona con síntomas de paro cardíaco.
+@
+revise la escena verificando que no haya cuerpos externos o materiales que puedan poner en riesgo al usuario o al cuerpo de la persona con síntomas de paro cardíaco.
+[[Generar estímulo sobre el cuerpo]]
+[[Alejarse de la escena]]
+{}
+<
+Simulator.OpenDialogueViewer()
+>
+
+:: Generar estímulo sobre el cuerpo[dialogue]
+Al usuario se le indica acercarse al cuerpo de la persona en riesgo y realizar un estímulo de dolor sobre la parte superior del cuerpo.
+<img src="https://depts.washington.edu/learncpr/espanol/images/handposition.gif" width="500" height="300">
+@
+acerquese al cuerpo de la persona en riesgo y realize un estímulo de dolor sobre la parte superior del cuerpo.
+[[Revisar respiración]]
+{}
+<
+Simulator.Wait(2)
+Simulator.Play("instruccionEstimulo")
+Simulator.OpenDialogueViewer()
+Simulator.CloseDialogueViewer()
+>
+
+:: Revisar respiración
+El usuario luego de revisar la respiración se puede acercar a la boca de la persona e inclinar el mentón de la persona hacia arriba para sentir o escuchar la respiracion.
+@
+[[Revisar pulso]]
+{}
+<
+Simulator.Wait(2)
+Simulator.Play("instruccionRespiracion")
+>
+
+:: DEA - Búsqueda y posición
+Encontrar el DEA, colocar los parches en la persona y oprimir el botón.
+@
+[[Alejarse del cuerpo]]
+[[Permanecer cerca del cuerpo]]
+{}
+<
+Simulator.OpenDialogueViewer()
+Simulator.CloseDialogueViewer()
+>
+
+:: Remover camisa[dialogue]
+Exponer la parte superior del torso del cuerpo removiendo la camisa o cualquier tipo de ropa que tenga. 
+@
+Exponer la parte superior del torso del cuerpo removiendo la camisa o cualquier tipo de ropa que tenga.
+[[DEA - Búsqueda y posición]]
+{}
+<>
+
+:: Llamar a emergencia[dialogue]
+Informar a autoridades o centro de atención de urgencias de la situacion actual.
+@
+Informar a autoridades o centros de atención de urgencias de la situacion actual.
+[[Esperar a la ambulancia]]
+[[Remover camisa]]
+{}
+<
+Simulator.OpenDialogueViewer()
+>
+
+:: Empezar compresiones
+Ubicar las manos como se muestra en la imagen  y presionar el pecho con fuerza moderada.
+<img src = "https://i.ibb.co/8BnwbQr/cpr-chest.jpg">
+@
+[[Paciente recuperado]]
+{
+}
+<>
+
+:: Instrucción 1 - CPR
+Arrodíllate junto al cuello y los hombros de la persona.
+@
+[[Instrucción 2 - CPR]]
+{
+
+}
+<
+>
+
+
+
+:: Instrucción 2 - CPR
+Coloca la parte inferior de la palma (base) de tu mano sobre el centro del pecho de la persona, entre los pezones.
+@
+Coloca la parte inferior de la palma (base) de tu mano sobre el centro del pecho de la persona, entre los pezones.
+[[Empezar compresiones]]
+{}
+<>
+
+:: Alejarse de la escena
+El usuario decide no atender al cuerpo en riesgo y se aleja de la escena
+@
+[[Muerte de la persona]]
+{
+
+}
+<
+
+>
+
+:: Muerte de la persona[END]
+Se acaba la simulacion y se le da la opción al usuario de reiniciar.
+@
+[[Start]]
+{
+}
+<
+>
+
+:: Esperar a la ambulancia
+El usuario decide esperar por la ambulancia y no realizar cpr al cuerpo 
+@
+[[Muerte de la persona]]
+{}
+<
+Body.color("Black")
+>
+
+:: Paciente recuperado[END]
+Enhorabuena! el cuerpo se ha estabilizado y le haz salvado la vida, ahora es esperar a los paramedicos para que lo atiendan
+@
+[[X]]
+{}
+<
+>
+
+:: Equipar protección bioseguridad
+En este nodo se espera que el usuario agarre las  gafas, tapabocas y guantes antes de acercarse a la persona en riesgo.
+@
+[[Examinar la escena]]
+{}
+<
+Simulator.Wait(3)
+Simulator.Play("instruccionEquiparElementosbioseguridad")
+>
+
+:: Revisar pulso
+Revisar el pulso del cuerpo haciendo contacto, para el pulso se palpa el cuello en la sección de la arteria en busca del pulso.
+@
+[[Llamar a emergencia]]
+{}
+<
+Simulator.Wait(2)
+Simulator.Play("instruccionPulso")
+>
+
+:: Alejarse del cuerpo
+El usuario se aleja correctamente del cuerpo.
+@
+[[Instrucción 1 - CPR]]
+{}
+<>
+
+:: Permanecer cerca del cuerpo
+El usuario se mantiene cerca al cuerpo y muere por una descarga eléctrica.
+@
+[[Muerte del usuario]]
+{}
+<
+>
+
+:: Muerte del usuario
+El usuario se muere. Se tiene la opción de reiniciar la simulación.
+@
+[[Start]]
+{}
+<>
+
+:: Que hacer?[dialogue]
+Que hacer?
+Se le mostraran al usuario una serie de elecciones que se pueden tomar. 
+@
+Una persona acaba de tener un paro cardiaco, que desea hacer?
+[[Llamar a emergencia]]
+[[aprender como atender a una persona con paro cardiaco]]
+[[No hacer nada]]
+{}
+<>
+
+:: aprender como atender a una persona con paro cardiaco
+aprender como atender a una persona con paro cardiaco
+@
+[[Equipar protección bioseguridad]]
+{}
+<
+Simulator.CloseDialogueViewer()
+>
+
+:: No hacer nada
+El usuariod ecide no hacer nada
+@
+[[Muerte de la persona]]
+{}
+<>
