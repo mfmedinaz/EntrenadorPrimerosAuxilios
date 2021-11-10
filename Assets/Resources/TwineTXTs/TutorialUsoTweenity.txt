@@ -1,0 +1,254 @@
+:: StoryTitle
+TutorialUsoTweenity
+
+:: UserScript[script]
+
+
+:: UserStylesheet[stylesheet]
+
+
+:: Instrucciones iniciales, Este es un entrenador de primeros auxilios para respuesta a paro cardiaco.[START]
+En este nodo va a reproducir un audio que dirá "Este es un entrenador de primeros auxilios, más adelante se darán intrucciones de como responder ante un evento de paro cardiaco".
+@
+[[Que hacer?]]
+{}
+<
+Simulator.InitializeAudiosDirectory("TweenityInstructions")
+Simulator.Wait(2)
+Simulator.Play("InstruccionInicial")
+Simulator.OpenDialogueViewer()
+>
+
+:: Que hacer?[dialogue]
+Se le mostraran al usuario una serie de elecciones que se pueden tomar. 
+@
+Una persona acaba de tener un paro cardiaco, que desea hacer?
+[[Llamar a emergencias]]
+[[aprender como atender a una persona con paro cardiaco]]
+[[No hacer nada]]
+{}
+<>
+
+:: Ver ejemplo selección random[random reminder]
+Al oprimir se selecciona una de 3 opciones (aleatoriamente)
+@
+[[1:Mostrar partículas amarillas]]
+[[2:Mostrar partículas rosadas]]
+[[3:Mostrar partículas moradas]]
+{
+Simulator.ShowReminder(1; BtnTutorial;"")
+BtnTutorial.Touched()
+}
+<>
+
+:: aprender como atender a una persona con paro cardiaco
+Al seleccionar el verde se muestra un botón verde
+<img src="https://raw.githubusercontent.com/VivianGomez/Tweenity/main/Ejemplos%20bocetos/botoncolor.jpeg" width="500" height="300">
+@
+[[Equipar protección bioseguridad]]
+{}
+<
+Simulator.CloseDialogueViewer()
+>
+
+:: Equipar protección bioseguridad
+En este nodo se espera que el usuario agarre las  gafas, tapabocas y guantes antes de acercarse a la persona en riesgo.
+@
+[[Examinar la escena]]
+{}
+<
+Simulator.Wait(3)
+Simulator.Play("instruccionEquiparElementosbioseguridad")
+>
+
+:: Examinar la escena[dialogue]
+@
+revise la escena verificando que no haya cuerpos externos o materiales que puedan poner en riesgo al usuario o al cuerpo de la persona con síntomas de paro cardíaco.
+[[Generar estímulo sobre el cuerpo]]
+[[Alejarse de la escena]]
+{}
+<
+Simulator.OpenDialogueViewer()
+>
+
+::Generar estímulo sobre el cuerpo[dialogue]
+Al usuario se le indica acercarse al cuerpo de la persona en riesgo y realizar un estímulo de dolor sobre la parte superior del cuerpo.
+<img src="https://depts.washington.edu/learncpr/espanol/images/handposition.gif" width="500" height="300">
+@
+acerquese al cuerpo de la persona en riesgo y realize un estímulo de dolor sobre la parte superior del cuerpo.
+[[Revisar respiración]]
+{}
+<
+Simulator.Wait(2)
+Simulator.Play("instruccionEstimulo")
+Simulator.OpenDialogueViewer()
+Simulator.CloseDialogueViewer()
+>
+
+:: Alejarse de la escena
+@
+[[Muerte de la persona]]
+{}
+<
+Simulator.CloseDialogueViewer()
+Simulator.Wait(5)
+>
+
+:: Revisar respiración
+El usuario luego de revisar la respiración se puede acercar a la boca de la persona e inclinar el mentón de la persona hacia arriba para sentir o escuchar la respiracion.
+@
+[[Revisar pulso]]
+{}
+<
+Simulator.Wait(2)
+Simulator.Play("instruccionRespiracion")
+>
+
+:: Revisar pulso
+Revisar el pulso del cuerpo haciendo contacto, para el pulso se palpa el cuello en la sección de la arteria en busca del pulso.
+@
+[[Llamar a emergencia]]
+{}
+<
+Simulator.Wait(2)
+Simulator.Play("instruccionPulso")
+>
+
+:: Llamar a emergencia[dialogue]
+@
+Informar a autoridades o centros de atención de urgencias de la situacion actual.
+[[Esperar a la ambulancia]]
+[[Remover camisa]]
+{}
+<
+Simulator.OpenDialogueViewer()
+>
+
+:: Esperar a la ambulancia
+El usuario decide esperar por la ambulancia y no realizar cpr al cuerpo
+@
+[[Muerte de la persona]]
+{}
+<
+>
+
+
+
+:: Muerte de la persona[dialogue]
+@
+Haz elegido la opcion incorrecta, se ha muerto la persona.
+[[X]]
+{}
+<>
+
+:: No hacer na  da
+Al seleccionar el azul se muestra un botón azul y un botón rojo
+<img src="https://raw.githubusercontent.com/VivianGomez/Tweenity/main/Ejemplos%20bocetos/botones%20color.jpeg" width="500" height="300">
+@
+[[Oprimir uno de los botones - Ejemplo selección múltiple]]
+{}
+<
+Simulator.CloseDialogueViewer()
+BtnsManager.ShowButton("button1";true)
+BtnTutorial.ChangeBtnColor(blue)
+BtnsManager.ShowButton("button2";true)
+BtnTutorial2.ChangeBtnColor(red)
+>
+
+:: Oprimir uno de los botones - Ejemplo selección múltiple[multipleChoice]
+En este nodo se quiere que el usuario oprima uno de los dos botones y dependiendo del que se oprima se va a mostar un color diferente de partículas. De hecho, se van a mostrar partículas del color del botón oprimido
+<img src="https://raw.githubusercontent.com/VivianGomez/Tweenity/main/Ejemplos%20bocetos/botones%20color.jpeg" width="500" height="300">
+@
+[[BtnTutorial.Touched():Ver partículas de color azul]]
+[[BtnTutorial2.Touched():Ver partículas de color rojo]]
+{
+BtnTutorial.Touched()
+BtnTutorial2.Touched()
+}
+<
+BtnsManager.ShowButton("button1";false)
+BtnsManager.ShowButton("button2";false)
+>
+
+:: 1:Mostrar partículas amarillas[END]
+Cuando el usuario oprime el botón, se le muestran unas partículas color amarillo
+<img src="https://raw.githubusercontent.com/VivianGomez/Tweenity/main/Ejemplos%20bocetos/p.amarillo.jpeg" width="500" height="300">
+@
+[[X]]
+{}
+<
+Particles.ChangeParticleColor(yellow)
+>
+
+:: 2:Mostrar partículas rosadas[END]
+Cuando el usuario oprime el botón, se le muestran unas partículas color rosado
+<img src="https://raw.githubusercontent.com/VivianGomez/Tweenity/main/Ejemplos%20bocetos/p.rosa.jpeg" width="500" height="300">
+@
+[[X]]
+{}
+<
+Particles.ChangeParticleColor(pink)
+>
+
+
+:: 3:Mostrar partículas moradas[END]
+Cuando el usuario oprime el botón, se le muestran unas partículas color morado
+<img src="https://raw.githubusercontent.com/VivianGomez/Tweenity/main/Ejemplos%20bocetos/p.purple.jpeg" width="500" height="300">
+@
+[[X]]
+{}
+<
+Particles.ChangeParticleColor(purple)
+>
+
+:: BtnTutorial.Touched():Ver partículas de color azul[END]
+Cuando el usuario oprime el botón azul, se desaparecen los dos botones y  se le muestran unas partículas color azul. 
+<img src="https://raw.githubusercontent.com/VivianGomez/Tweenity/main/Ejemplos%20bocetos/p.azul.jpeg" width="500" height="300">
+@
+[[X]]
+{}
+<
+Particles.ChangeParticleColor(blue)
+>
+
+:: BtnTutorial2.Touched():Ver partículas de color rojo[END]
+Cuando el usuario oprime el botón rojo, se desaparecen los dos botones y  se le muestran unas partículas color rojo. 
+<img src="https://raw.githubusercontent.com/VivianGomez/Tweenity/main/Ejemplos%20bocetos/p.rojp.jpeg" width="500" height="300">
+@
+[[X]]
+{}
+<
+Particles.ChangeParticleColor(red)
+>
+
+:: Ver ejemplo de timeout[timeOut]
+En este nodo se quiere que el usuario oprima el botón verde. Si no lo hace después de un determinado tiempo se mostrará una pantalla de "GameOver"
+@
+[[Mostrar partículas verdes]]
+[[timeout: Ver pantalla GameOver]]
+{
+Simulator.TimeOut(5)
+BtnTutorial.Touched()
+}
+<
+BtnsManager.ShowButton("button1";false)
+>
+
+:: Mostrar partículas verdes[END]
+Cuando el usuario oprime el botón, se le muestran unas partículas color verde
+@
+[[X]]
+{}
+<
+Particles.ChangeParticleColor(green)
+>
+
+:: timeout: Ver pantalla GameOver[END]
+Cuando el usuario oprime el botón, se le muestran un mensaje de GameOver
+@
+[[X]]
+{}
+<
+BtnsManager.ShowButton("button1";false)
+GameOver.Activate()
+>
